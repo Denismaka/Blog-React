@@ -163,21 +163,6 @@ Vous pouvez aussi utiliser des badges (shields) comme en tête du README pour af
 
 Ce projet est pour l'apprentissage — adaptez la licence selon vos besoins.
 
----
-
-Si vous voulez, je peux :
-
--   Ajouter une section « How to deploy » (Netlify / Vercel / Surge).
--   Mettre en place une CI minimale (lint + build) via GitHub Actions.
--   Ajouter des tests unitaires de base pour `useFetch` et le composant `Card`.
-
----
-
-### Remarques rapides
-
--   Si vous souhaitez que j'ajoute des icônes précises (SVG ou bibliothèque) ou que j'intègre un screenshot réel, fournissez les fichiers image ou dites-moi quelle bibliothèque d'icônes privilégier.
--   Si vous voulez que je masque ou remplace vos coordonnées de contact, dites-le et je mettrai un placeholder à la place.
-
 ## 📬 Contact
 
 Pour toute question, collaboration ou devis :
@@ -189,8 +174,6 @@ Pour toute question, collaboration ou devis :
     -   [LinkedIn](https://www.linkedin.com/in/Denismaka)
     -   [GitHub](https://github.com/Denismaka)
     -   [Facebook](https://www.facebook.com/Denismaka)
-
-> Pour modifier vos coordonnées : éditez simplement cette section dans `README.md`. Si vous préférez, je peux remplacer vos coordonnées par des placeholders ou ajouter un fichier `CONTACT.md` séparé pour garder le README plus générique.
 
 ---
 
