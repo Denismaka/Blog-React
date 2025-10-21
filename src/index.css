@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utilities for a polished UI */
+:root {
+    --container-max: 1100px;
+}
+
+@layer components {
+    .app-container {
+        @apply mx-auto px-4 w-full;
+        max-width: var(--container-max);
+    }
+
+    .card-elevated {
+        @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden;
+    }
+
+    .btn-brand {
+        @apply inline-flex items-center gap-2 px-4 py-2 rounded-md text-white font-semibold transition-transform transform hover:-translate-y-0.5;
+        background-image: linear-gradient(90deg, #e879f9, #d946ef, #a21caf);
+    }
+
+    .hero {
+        @apply text-center py-16 md:py-24;
+    }
+
+    .badge-secondary {
+        @apply text-sm font-medium px-3 py-1 rounded-full text-white;
+        background-image: linear-gradient(90deg, #f0abfc, #d946ef);
+    }
+}
+
+.glow-accent {
+    box-shadow: 0 6px 30px -10px rgba(217, 70, 239, 0.45);
+}
