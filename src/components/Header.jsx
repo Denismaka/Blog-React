@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useToggle } from "../hooks/useToggle.js";
 import { activeClassIf } from "../utils/classnames.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faEnvelope, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * @param {string} page
@@ -9,10 +11,11 @@ export function Header({ page }) {
     const [expanded, toggleExpanded] = useToggle(false);
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg" style={{background: "linear-gradient(90deg, #fdf4ff 0%, #d946ef 50%, #701a75 100%)"}}>
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">
-                    MonSite
+                <a className="navbar-brand fw-bold text-white" href="#">
+                    <FontAwesomeIcon icon={faHome} className="me-2" />
+                    MonBlog
                 </a>
                 <button
                     onClick={toggleExpanded}
