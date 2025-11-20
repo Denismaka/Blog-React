@@ -14,7 +14,7 @@ function App() {
     return (
         <>
             <Header page={page} />
-            <div className="container my-3">
+            <div className="app-container py-6 min-h-screen">
                 <ErrorBoundary FallbackComponent={PageError}>
                     {pageContent}
                 </ErrorBoundary>

@@ -3,7 +3,7 @@ export function activeClassIf (condition, className) {
         return className
     }
     if (!className) {
-        return 'active';
+        return 'bg-purple-800';
     }
-    return `active ${className}`
+    return `${className} bg-purple-800`
 }

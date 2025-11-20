@@ -27,9 +27,11 @@ export function EditPostModal({ post, onClose, onSave }) {
 
     return (
         <Modal onClose={onClose}>
-            <h1>Editer l'article </h1>
-            {error && <Alert type="danger">{error.toString()}</Alert>}
-            <form action="" onSubmit={handleSubmit} className="vstack gap-3">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Editer l'article
+            </h1>
+            {error && <Alert type="danger" className="mb-4">{error.toString()}</Alert>}
+            <form action="" onSubmit={handleSubmit} className="space-y-4">
                 <Input name="title" label="Titre" defaultValue={post.title} />
                 <Input
                     name="body"
@@ -37,7 +39,7 @@ export function EditPostModal({ post, onClose, onSave }) {
                     type="textarea"
                     defaultValue={post.body}
                 />
-                <div className="hstack gap-2 justify-content-end">
+                <div className="flex flex-col sm:flex-row gap-3 justify-end pt-4">
                     <Button
                         disabled={loading}
                         type="button"
@@ -47,7 +49,7 @@ export function EditPostModal({ post, onClose, onSave }) {
                         Annuler
                     </Button>
                     <Button disabled={loading} type="submit">
-                        Sauvegarder
+                        {loading ? "Sauvegarde..." : "Sauvegarder"}
                     </Button>
                 </div>
             </form>

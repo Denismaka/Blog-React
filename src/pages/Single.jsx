@@ -35,14 +35,20 @@ export function Single({ postId }) {
     };
 
     return (
-        <>
-            <h1 className="mb-3">{post.title}</h1>
+        <article className="max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                {post.title}
+            </h1>
             <img
                 src={`https://picsum.photos/id/${post.id}/800/600`}
-                alt=""
-                className="img-fluid img-thumbnail my-3"
+                alt={post.title}
+                className="w-full h-auto rounded-xl shadow-lg mb-8 object-cover"
             />
-            <p>{post.body}</p>
+            <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg whitespace-pre-line">
+                    {post.body}
+                </p>
+            </div>
             {isEditing && (
                 <EditPostModal
                     post={post}
@@ -50,12 +56,17 @@ export function Single({ postId }) {
                     onSave={handleSave}
                 />
             )}
-            <Button variant="secondary" onClick={toggleEditing}>
-                Editer l'article
-            </Button>
-            <p>
-                <a href={`#post:${post.id + 1}`}>Article suivant</a>
-            </p>
-        </>
+            <div className="flex flex-col sm:flex-row gap-4 items-start mb-8">
+                <Button variant="secondary" onClick={toggleEditing}>
+                    Editer l'article
+                </Button>
+                <a 
+                    href={`#post:${post.id + 1}`}
+                    className="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium transition-colors"
+                >
+                    → Article suivant
+                </a>
+            </div>
+        </article>
     );
 }

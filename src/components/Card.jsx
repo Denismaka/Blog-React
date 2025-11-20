@@ -12,11 +12,25 @@ export function Card({ image, title, description, href, buttonLabel }) {
     const showButton = !!(href && buttonLabel);
 
     return (
-        <div className="card">
-            {image && <img src={image} className="card-img-top" alt="" />}
-            <div className="card-body">
-                {title && <h5 className="card-title">{title}</h5>}
-                {description && <p className="card-text">{description}</p>}
+        <div className="card-elevated hover:shadow-xl transition-shadow duration-300">
+            {image && (
+                <img 
+                    src={image} 
+                    className="w-full h-48 object-cover" 
+                    alt={title || ""} 
+                />
+            )}
+            <div className="p-6">
+                {title && (
+                    <h5 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        {title}
+                    </h5>
+                )}
+                {description && (
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                        {description}
+                    </p>
+                )}
                 {showButton && (
                     <Button variant="primary" href={href}>
                         {buttonLabel}

@@ -20,18 +20,24 @@ export function Home() {
 
     return (
         <>
-            <h1 className="mb-3">Mon Blog</h1>
-            <div className="row gap-4">
+            <div className="hero mb-12">
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                    Mon Blog
+                </h1>
+                <p className="text-lg text-gray-600 dark:text-gray-400">
+                    Découvrez nos derniers articles
+                </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.map((post) => (
-                    <div key={post.id} className="col-12 col-md-4">
-                        <Card
-                            image={`https://picsum.photos/id/${post.id}/280/180`}
-                            title={post.title}
-                            description={post.body}
-                            href={`#post:${post.id}`}
-                            buttonLabel="Voir l'article"
-                        />
-                    </div>
+                    <Card
+                        key={post.id}
+                        image={`https://picsum.photos/id/${post.id}/280/180`}
+                        title={post.title}
+                        description={post.body}
+                        href={`#post:${post.id}`}
+                        buttonLabel="Voir l'article"
+                    />
                 ))}
             </div>
         </>
