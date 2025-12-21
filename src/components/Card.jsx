@@ -1,4 +1,4 @@
-import { Button } from "./Button.jsx";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -39,17 +39,16 @@ export function Card({ image, title, description, href, buttonLabel }) {
                 )}
                 {showButton && (
                     <div className="flex justify-end mt-auto pt-2">
-                        <Button
-                            variant="primary"
-                            href={href}
-                            className="group/btn"
+                        <Link
+                            to={href}
+                            className="btn btn-gradient-primary gap-2 text-white border-none px-8 py-4 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 group/btn"
                         >
                             {buttonLabel}
                             <FontAwesomeIcon
                                 icon={faArrowRight}
                                 className="group-hover/btn:translate-x-1 transition-transform"
                             />
-                        </Button>
+                        </Link>
                     </div>
                 )}
             </div>

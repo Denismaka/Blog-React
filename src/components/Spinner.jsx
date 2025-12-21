@@ -10,6 +10,7 @@ export function Spinner({ size = "lg" }) {
             className="flex flex-col justify-center items-center py-12 gap-4 animate-fade-in"
             role="status"
             aria-label="Chargement en cours"
+            aria-live="polite"
         >
             <div
                 className={`loading loading-spinner ${sizeMap[size]} text-primary-600 dark:text-primary-400`}
