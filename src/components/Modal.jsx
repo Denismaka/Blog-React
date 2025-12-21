@@ -22,25 +22,28 @@ export function Modal({ children, onClose, title }) {
             onCancel={handleClose}
             onClose={handleClose}
         >
-            <div className="modal-box max-w-2xl animate-scale-in">
+            <div className="modal-box max-w-2xl bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 border border-neutral-200 dark:border-neutral-700 shadow-2xl animate-scale-in p-8">
                 {title && (
-                    <h3 className="font-bold text-lg mb-4 text-primary">{title}</h3>
+                    <h3 className="font-bold text-lg mb-6 text-primary-600 dark:text-primary-400 font-display">
+                        {title}
+                    </h3>
                 )}
                 <form method="dialog">
-                    <button 
-                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-error hover:text-error-content transition-colors"
+                    <button
+                        className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 hover:bg-danger-500 hover:text-white dark:hover:bg-danger-600 transition-colors text-neutral-700 dark:text-neutral-300"
                         onClick={handleClose}
+                        aria-label="Fermer"
                     >
                         <FontAwesomeIcon icon={faXmark} />
                     </button>
                 </form>
-                <div className="py-4">
-                    {children}
-                </div>
+                <div className="pt-2">{children}</div>
             </div>
-            <form method="dialog" className="modal-backdrop" onClick={handleClose}>
-                <button>close</button>
-            </form>
+            <form
+                method="dialog"
+                className="modal-backdrop bg-black/50 dark:bg-black/70 backdrop-blur-sm"
+                onClick={handleClose}
+            ></form>
         </dialog>,
         document.body
     );

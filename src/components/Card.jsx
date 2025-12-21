@@ -14,33 +14,39 @@ export function Card({ image, title, description, href, buttonLabel }) {
     const showButton = !!(href && buttonLabel);
 
     return (
-        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-scale-in group">
+        <div className="card-modern hover:scale-105 animate-scale-in group overflow-hidden">
             {image && (
-                <figure className="overflow-hidden">
-                    <img 
-                        src={image} 
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
-                        alt={title || ""} 
+                <figure className="overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                    <img
+                        src={image}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        alt={title || ""}
+                        loading="lazy"
                     />
                 </figure>
             )}
-            <div className="card-body">
+            <div className="p-6 flex flex-col h-full">
                 {title && (
-                    <h2 className="card-title text-primary line-clamp-2 group-hover:text-secondary transition-colors">
+                    <h2 className="text-xl font-bold text-primary-600 dark:text-primary-400 line-clamp-2 group-hover:text-secondary-600 dark:group-hover:text-secondary-400 transition-colors mb-3 px-1">
                         {title}
                     </h2>
                 )}
                 {description && (
-                    <p className="text-base-content/70 line-clamp-3">
+                    <p className="text-neutral-600 dark:text-neutral-300 line-clamp-3 mb-4 flex-grow px-1">
                         {description}
                     </p>
                 )}
                 {showButton && (
-                    <div className="card-actions justify-end mt-4">
-                        <Button variant="primary" href={href} className="group/btn">
+                    <div className="flex justify-end mt-auto pt-2">
+                        <Button
+                            variant="primary"
+                            href={href}
+                            className="group/btn"
+                        >
                             {buttonLabel}
-                            <FontAwesomeIcon 
-                                icon={faArrowRight} 
+                            <FontAwesomeIcon
+                                icon={faArrowRight}
                                 className="group-hover/btn:translate-x-1 transition-transform"
                             />
                         </Button>
