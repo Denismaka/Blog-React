@@ -4,6 +4,7 @@ import { Contact } from "./pages/Contact.jsx";
 import { Single } from "./pages/Single.jsx";
 import { NotFound } from "./pages/NotFound.jsx";
 import { Header } from "./components/Header.jsx";
+import { Footer } from "./components/Footer.jsx";
 import { ErrorBoundary } from "react-error-boundary";
 import { Alert } from "./components/Alert.jsx";
 
@@ -12,14 +13,15 @@ function App() {
     const pageContent = getPageContent(page, param);
 
     return (
-        <>
+        <div className="min-h-screen flex flex-col bg-base-200 text-base-content">
             <Header page={page} />
-            <div className="app-container py-6 min-h-screen">
+            <main className="app-container py-6 flex-1 page-transition">
                 <ErrorBoundary FallbackComponent={PageError}>
                     {pageContent}
                 </ErrorBoundary>
-            </div>
-        </>
+            </main>
+            <Footer />
+        </div>
     );
 }
 
