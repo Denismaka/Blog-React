@@ -102,6 +102,35 @@
         @apply bg-white/10 dark:bg-neutral-900/10 backdrop-blur-md;
         @apply border border-white/20 dark:border-neutral-700/20;
     }
+    
+    /* Accessibilité */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+    
+    .focus\:not-sr-only:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: inherit;
+        margin: inherit;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+    
+    /* Focus visible amélioré */
+    *:focus-visible {
+        @apply outline-2 outline-offset-2 outline-primary-500 dark:outline-primary-400;
+    }
 
     /* Dégradés réutilisables */
     .gradient-primary {

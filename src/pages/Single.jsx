@@ -1,6 +1,7 @@
-import { useDocumentTitle } from "../hooks/useDocumentTitle.js";
-import { useState, useEffect } from "react";
-import { Spinner } from "../components/Spinner.jsx";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { useArticle, useUpdateArticle } from "../hooks/useArticles.js";
+import { ArticleSkeleton } from "../components/Skeleton.jsx";
 import { Alert } from "../components/Alert.jsx";
 import { Button } from "../components/Button.jsx";
 import { useToggle } from "../hooks/useToggle.js";
@@ -13,80 +14,80 @@ import {
     faCalendar,
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { cleanArticleText } from "../utils/textFormatter.js";
-import { articles } from "../data/articles.js";
+import { cleanArticleText, truncateText } from "../utils/textFormatter.js";
 
-export function Single({ postId }) {
-    const [post, setPost] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useDocumentTitle(post?.title || "Article");
+export function Single() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { data: post, isLoading, error } = useArticle(id);
+    const updateArticle = useUpdateArticle();
     const [isEditing, toggleEditing] = useToggle(false);
 
-    useEffect(() => {
-        // Simuler un chargement asynchrone
-        setTimeout(() => {
-            try {
-                const foundPost = articles.find(
-                    (article) => article.id === parseInt(postId)
-                );
-                if (foundPost) {
-                    setPost(foundPost);
-                } else {
-                    setError(new Error("Article introuvable"));
-                }
-            } catch (e) {
-                setError(e);
-            } finally {
-                setLoading(false);
+    const handleSave = (data) => {
+        updateArticle.mutate(
+            { id: parseInt(id), data },
+            {
+                onSuccess: () => {
+                    toggleEditing();
+                },
             }
-        }, 500);
-    }, [postId]);
+        );
+    };
 
-    if (loading) {
-        return <Spinner />;
+    if (isLoading) {
+        return <ArticleSkeleton />;
     }
 
     if (error) {
         return (
-            <Alert type="error" className="animate-slide-down">
-                Erreur lors du chargement de l'article : {error.toString()}
-            </Alert>
+            <>
+                <Helmet>
+                    <title>Article introuvable - Mon Blog</title>
+                </Helmet>
+                <Alert type="error" className="animate-slide-down">
+                    Erreur lors du chargement de l'article : {error.message}
+                </Alert>
+            </>
         );
     }
 
     if (!post) {
         return (
-            <Alert type="warning" className="animate-slide-down">
-                Article introuvable
-            </Alert>
+            <>
+                <Helmet>
+                    <title>Article introuvable - Mon Blog</title>
+                </Helmet>
+                <Alert type="warning" className="animate-slide-down">
+                    Article introuvable
+                </Alert>
+            </>
         );
     }
 
-    const handleSave = (data) => {
-        setPost({
-            ...post,
-            ...data,
-        });
-        toggleEditing();
-    };
-
-    const nextPostId = parseInt(postId) + 1;
-    const prevPostId = parseInt(postId) - 1;
+    const nextPostId = parseInt(id) + 1;
+    const prevPostId = parseInt(id) - 1;
 
     return (
-        <article className="max-w-4xl mx-auto animate-fade-in">
-            {/* Bouton retour */}
-            <div className="mb-6 animate-slide-down">
-                <a
-                    href="#"
-                    className="btn btn-ghost gap-2 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 transition-all text-neutral-700 dark:text-neutral-300 px-8 py-4"
-                >
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                    Retour à l'accueil
-                </a>
-            </div>
+        <>
+            <Helmet>
+                <title>{post.title} - Mon Blog</title>
+                <meta name="description" content={truncateText(post.body, 160)} />
+                <meta property="og:title" content={post.title} />
+                <meta property="og:description" content={truncateText(post.body, 160)} />
+                <meta property="og:type" content="article" />
+                {post.image && <meta property="og:image" content={post.image} />}
+            </Helmet>
+            <article className="max-w-4xl mx-auto animate-fade-in">
+                {/* Bouton retour */}
+                <div className="mb-6 animate-slide-down">
+                    <Link
+                        to="/"
+                        className="btn btn-ghost gap-2 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 transition-all text-neutral-700 dark:text-neutral-300 px-8 py-4"
+                    >
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                        Retour à l'accueil
+                    </Link>
+                </div>
 
             {/* En-tête de l'article */}
             <div
@@ -155,21 +156,21 @@ export function Single({ postId }) {
                 </div>
                 <div className="flex gap-4">
                     {prevPostId > 0 && (
-                        <a
-                            href={`#post:${prevPostId}`}
+                        <Link
+                            to={`/post/${prevPostId}`}
                             className="btn btn-ghost gap-2 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 transition-all text-neutral-700 dark:text-neutral-300 px-8 py-4"
                         >
                             <FontAwesomeIcon icon={faArrowLeft} />
                             Précédent
-                        </a>
+                        </Link>
                     )}
-                    <a
-                        href={`#post:${nextPostId}`}
+                    <Link
+                        to={`/post/${nextPostId}`}
                         className="btn btn-gradient-primary gap-2 text-white border-none px-8 py-4"
                     >
                         Suivant
                         <FontAwesomeIcon icon={faArrowRight} />
-                    </a>
+                    </Link>
                 </div>
             </div>
 
@@ -180,6 +181,7 @@ export function Single({ postId }) {
                     onSave={handleSave}
                 />
             )}
-        </article>
+            </article>
+        </>
     );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDocumentTitle } from "../hooks/useDocumentTitle.js";
+import { Helmet } from "react-helmet-async";
 import { Input } from "../components/Input.jsx";
 import { Button } from "../components/Button.jsx";
 import { Alert } from "../components/Alert.jsx";
@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Contact() {
-    useDocumentTitle("Contact - Mon Blog");
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -76,8 +75,16 @@ export function Contact() {
     };
 
     return (
-        <div className="max-w-2xl mx-auto animate-fade-in">
-            <div className="hero mb-8">
+        <>
+            <Helmet>
+                <title>Contact - Mon Blog</title>
+                <meta
+                    name="description"
+                    content="Contactez-nous pour toute question ou suggestion concernant notre blog"
+                />
+            </Helmet>
+            <div className="max-w-2xl mx-auto animate-fade-in">
+                <div className="hero mb-8">
                 <div className="flex justify-center mb-4">
                     <div className="avatar placeholder">
                         <div className="bg-gradient-to-br from-primary-500 to-secondary-500 text-white rounded-full w-20 shadow-glow">
@@ -167,5 +174,6 @@ export function Contact() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

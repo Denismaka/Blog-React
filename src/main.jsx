@@ -1,10 +1,19 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
+import { QueryProvider } from "./providers/QueryProvider.jsx";
+import { AppHelmetProvider } from "./providers/HelmetProvider.jsx";
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <App />
+        <BrowserRouter>
+            <QueryProvider>
+                <AppHelmetProvider>
+                    <App />
+                </AppHelmetProvider>
+            </QueryProvider>
+        </BrowserRouter>
     </React.StrictMode>
 );
