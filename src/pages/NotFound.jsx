@@ -1,21 +1,44 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faExclamationTriangle, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "../components/Button.jsx";
+
 export function NotFound({ page }) {
     return (
-        <div className="text-center py-16">
-            <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-4">
-                404
-            </h1>
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
+        <div className="text-center py-16 animate-fade-in">
+            <div className="mb-8 animate-bounce-slow">
+                <div className="text-9xl font-bold text-primary opacity-20">404</div>
+            </div>
+            
+            <div className="mb-6 animate-scale-in" style={{ animationDelay: '0.2s' }}>
+                <FontAwesomeIcon 
+                    icon={faExclamationTriangle} 
+                    className="text-6xl text-warning mb-4"
+                />
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 animate-slide-down" style={{ animationDelay: '0.3s' }}>
                 Page introuvable
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
-                La page demandée "{page}" n'existe pas
+            </h1>
+            
+            <p className="text-lg text-base-content/70 mb-8 max-w-md mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                Désolé, la page demandée "{page || 'cette page'}" n'existe pas ou a été déplacée.
             </p>
-            <a 
-                href="#"
-                className="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-            >
-                Retour à l'accueil
-            </a>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '0.5s' }}>
+                <a href="#">
+                    <Button variant="primary" className="gap-2">
+                        <FontAwesomeIcon icon={faHome} />
+                        Retour à l'accueil
+                    </Button>
+                </a>
+                <button 
+                    onClick={() => window.history.back()}
+                    className="btn btn-outline btn-primary gap-2"
+                >
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    Page précédente
+                </button>
+            </div>
         </div>
     );
 }
