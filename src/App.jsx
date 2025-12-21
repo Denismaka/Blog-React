@@ -13,7 +13,7 @@ function App() {
     const pageContent = getPageContent(page, param);
 
     return (
-        <div className="min-h-screen flex flex-col bg-base-200 text-base-content">
+        <div className="min-h-screen flex flex-col bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 transition-colors duration-300">
             <Header page={page} />
             <main className="app-container py-6 flex-1 page-transition">
                 <ErrorBoundary FallbackComponent={PageError}>
