@@ -15,10 +15,14 @@
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.91.1",
     "jiti": "^2.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-error-boundary": "^4.0.11"
+    "react-error-boundary": "^4.0.11",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
