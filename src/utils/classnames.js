@@ -3,7 +3,7 @@ export function activeClassIf (condition, className) {
         return className
     }
     if (!className) {
-        return 'bg-purple-800';
+        return 'bg-secondary text-secondary-content';
     }
-    return `${className} bg-purple-800`
+    return `${className} bg-secondary text-secondary-content`
 }
