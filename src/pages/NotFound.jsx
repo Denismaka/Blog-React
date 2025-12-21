@@ -50,8 +50,8 @@ export function NotFound() {
                     className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-md mx-auto animate-fade-in"
                     style={{ animationDelay: "0.4s" }}
                 >
-                    Désolé, la page demandée "{location.pathname}" n'existe pas
-                    ou a été déplacée.
+                    Désolé, la page demandée &quot;{location.pathname}&quot;
+                    n&apos;existe pas ou a été déplacée.
                 </p>
 
                 <div
@@ -61,7 +61,7 @@ export function NotFound() {
                     <Link to="/">
                         <Button variant="primary" className="gap-2">
                             <FontAwesomeIcon icon={faHome} />
-                            Retour à l'accueil
+                            Retour à l&apos;accueil
                         </Button>
                     </Link>
                     <button
