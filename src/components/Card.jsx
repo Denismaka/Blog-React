@@ -1,4 +1,6 @@
 import { Button } from "./Button.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * @param {string} image
@@ -12,29 +14,37 @@ export function Card({ image, title, description, href, buttonLabel }) {
     const showButton = !!(href && buttonLabel);
 
     return (
-        <div className="card-elevated hover:shadow-xl transition-shadow duration-300">
+        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-scale-in group">
             {image && (
-                <img 
-                    src={image} 
-                    className="w-full h-48 object-cover" 
-                    alt={title || ""} 
-                />
+                <figure className="overflow-hidden">
+                    <img 
+                        src={image} 
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
+                        alt={title || ""} 
+                    />
+                </figure>
             )}
-            <div className="p-6">
+            <div className="card-body">
                 {title && (
-                    <h5 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                    <h2 className="card-title text-primary line-clamp-2 group-hover:text-secondary transition-colors">
                         {title}
-                    </h5>
+                    </h2>
                 )}
                 {description && (
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                    <p className="text-base-content/70 line-clamp-3">
                         {description}
                     </p>
                 )}
                 {showButton && (
-                    <Button variant="primary" href={href}>
-                        {buttonLabel}
-                    </Button>
+                    <div className="card-actions justify-end mt-4">
+                        <Button variant="primary" href={href} className="group/btn">
+                            {buttonLabel}
+                            <FontAwesomeIcon 
+                                icon={faArrowRight} 
+                                className="group-hover/btn:translate-x-1 transition-transform"
+                            />
+                        </Button>
+                    </div>
                 )}
             </div>
         </div>
