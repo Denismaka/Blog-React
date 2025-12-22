@@ -1,0 +1,130 @@
+// ============================================
+// SCHÉMA DE BASE DE DONNÉES PRISMA
+// ============================================
+// Ce fichier définit la structure de votre base de données
+// Prisma génère automatiquement les tables à partir de ce schéma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// MODÈLE USER (Utilisateurs)
+// ============================================
+// Stocke les informations des utilisateurs (auteurs, admins)
+
+model User {
+  id        String   @id @default(uuid()) // ID unique généré automatiquement
+  email     String   @unique // Email unique (pas de doublons)
+  password  String   // Mot de passe hashé (jamais en clair !)
+  name      String?  // Nom de l'utilisateur (optionnel)
+  role      Role     @default(USER) // Rôle : USER, AUTHOR, ADMIN
+  createdAt DateTime @default(now()) // Date de création
+  updatedAt DateTime @updatedAt // Date de dernière modification
+
+  // Relations (un utilisateur peut avoir plusieurs articles)
+  articles Article[]
+
+  @@map("users") // Nom de la table dans PostgreSQL
+}
+
+// ============================================
+// MODÈLE ARTICLE
+// ============================================
+// Stocke les articles du blog
+
+model Article {
+  id          String   @id @default(uuid())
+  title       String   // Titre de l'article
+  slug        String   @unique // URL-friendly (ex: "mon-premier-article")
+  body        String   @db.Text // Contenu de l'article (texte long)
+  excerpt     String?  @db.Text // Résumé de l'article (optionnel)
+  imageUrl    String?  // URL de l'image principale
+  published   Boolean  @default(false) // Publié ou brouillon
+  publishedAt DateTime? // Date de publication
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relation : un article appartient à un auteur (User)
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  // Relations avec les catégories (Many-to-Many)
+  categories ArticleCategory[]
+
+  @@map("articles")
+  @@index([slug]) // Index pour recherche rapide par slug
+  @@index([authorId]) // Index pour recherche rapide par auteur
+}
+
+// ============================================
+// MODÈLE CATEGORY (Catégories)
+// ============================================
+// Catégories pour organiser les articles
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique // Nom de la catégorie
+  slug        String   @unique // URL-friendly
+  description String?  @db.Text // Description (optionnel)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relation Many-to-Many avec Article
+  articles ArticleCategory[]
+
+  @@map("categories")
+}
+
+// ============================================
+// MODÈLE ARTICLE CATEGORY (Table de liaison)
+// ============================================
+// Table de liaison pour la relation Many-to-Many
+// Un article peut avoir plusieurs catégories
+// Une catégorie peut contenir plusieurs articles
+
+model ArticleCategory {
+  id         String   @id @default(uuid())
+  articleId  String
+  categoryId String
+  createdAt  DateTime @default(now())
+
+  // Relations
+  article  Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, categoryId]) // Un article ne peut pas avoir deux fois la même catégorie
+  @@map("article_categories")
+}
+
+// ============================================
+// MODÈLE CONTACT MESSAGE
+// ============================================
+// Messages envoyés via le formulaire de contact
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String   // Nom de l'expéditeur
+  email     String   // Email de l'expéditeur
+  message   String   @db.Text // Message
+  read      Boolean  @default(false) // Lu ou non
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+// ============================================
+// ENUM ROLE (Rôles utilisateurs)
+// ============================================
+
+enum Role {
+  USER   // Utilisateur simple (lecteur)
+  AUTHOR // Auteur (peut créer/modifier ses articles)
+  ADMIN  // Administrateur (accès total)
+}
+
